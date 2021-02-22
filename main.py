@@ -15,6 +15,8 @@ playerImg = pygame.image.load('spacecraft.png')
 playerX = 370
 playerY = 480
 
+playerX_change=0
+
 def palyer(x,y):
     screen.blit(playerImg,(x,y))
 
@@ -28,5 +30,16 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
-    palyer(playerX,playerY)
+        #if keystrock is pressed wether itz rigth or left
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_LEFT:
+                playerX_change -=0.3
+            if event.key == pygame.K_RIGHT:
+                playerX_change = 0.3
+
+        if event.type == pygame.KEYUP:
+            if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
+                playerX_change = 0
+    playerX += playerX_change
+    palyer(playerX, playerY)
     pygame.display.update()
