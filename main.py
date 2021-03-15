@@ -7,6 +7,9 @@ pygame.init()
 # create the screen
 screen = pygame.display.set_mode((800, 600))
 
+#background
+background=pygame.image.load('background.jpg')#your background image here 
+
 # tittle and icon
 pygame.display.set_caption("Space Action")
 icon = pygame.image.load('rocket.png')
@@ -39,6 +42,8 @@ running = True
 while running:
     # rgb code here
     screen.fill((0, 0, 0))
+    #background image
+    screen.blit(background,(0,0))
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
