@@ -25,8 +25,18 @@ playerX_change = 0
 enemyImg = pygame.image.load('alien.png')
 enemyX = random.randint(0,800)
 enemyY = random.randint(50,150)
-enemyX_change = 0.3
+enemyX_change = 0.2
 enemyY_change = 40
+
+# bullet
+#redy = you cant see the bullet on screen
+#fire = bullet is currently moving
+bulletImg = pygame.image.load('bullet.png')
+bulletX = 0
+bulletY = 480
+bulletX_change = 0
+bulletY_change = 0.9
+bullet_state="redy"
 
 
 def palyer(x, y):
@@ -35,6 +45,11 @@ def palyer(x, y):
 
 def enemy(x, y):
     screen.blit(enemyImg, (x, y))
+
+def fire_bullet(x,y):
+    global bullet_state
+    bullet_state= "fire"
+    screen.blit(bulletImg,(x+16,y+10))
 
 
 # game Loop
@@ -55,6 +70,8 @@ while running:
                 playerX_change -= 0.3
             if event.key == pygame.K_RIGHT:
                 playerX_change = 0.3
+            if event.key == pygame.K_SPACE:
+                fire_bullet(playerX,bulletY)
 
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
@@ -72,11 +89,16 @@ while running:
     enemyX += enemyX_change
 
     if enemyX <= 0:
-        enemyX_change = 0.3
+        enemyX_change = 0.2
         enemyY += enemyY_change
     elif enemyX >= 736:
-        enemyX_change = -0.3
+        enemyX_change = -0.2
         enemyY += enemyY_change
+
+    #bullet movement
+    if bullet_state is "fire":
+        fire_bullet(playerX,bulletY)
+        bulletY -= bulletY_change
 
     palyer(playerX, playerY)
     enemy(enemyX,enemyY)
