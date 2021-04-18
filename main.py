@@ -67,9 +67,9 @@ while running:
         # if keystrock is pressed wether itz rigth or left
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
-                playerX_change -= 0.3
+                playerX_change -= 0.5
             if event.key == pygame.K_RIGHT:
-                playerX_change = 0.3
+                playerX_change = 0.5
             if event.key == pygame.K_SPACE:
                 fire_bullet(playerX,bulletY)
 
@@ -96,6 +96,9 @@ while running:
         enemyY += enemyY_change
 
     #bullet movement
+    if bulletY<=0:
+        bulletY = 480
+        bullet_state ="redy"
     if bullet_state is "fire":
         fire_bullet(playerX,bulletY)
         bulletY -= bulletY_change
